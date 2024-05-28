@@ -151,9 +151,117 @@ int main (void) {
     printf("Idade da pessoa mais alta: %d anos com %.2fm de altura", idadeMaiorAltura, maiorAltura);
     return 0;
 }
+
+
 #include <stdio.h> //EXERCÍCIO 08
+#include <string.h>
 
 int main (void) {
+    char nomes[5][20], nomeMaior[20];
+    int tam = 0, tamMaiorNome = 0;
 
+    for (int i = 0; i < 5; i++) {
+        printf("Digite o nome da %d pessoa: ", i+1);
+        scanf("%s", nomes[i]);
+        tam = strlen(nomes[i]);
+        if (tam > tamMaiorNome) {
+            tamMaiorNome = tam;
+            strcpy(nomeMaior, nomes[i]);
+        }
+    }
+    printf("A pessoa com o maior nome foi %s com %d caracteres.", nomeMaior, tamMaiorNome);
+    return 0;
+}
+
+
+#include <stdio.h> // EXERCÍCIO 09
+#include <string.h>
+
+int main(void) {
+    char cargos[5][20];
+    int comp = 0;
+
+    for (int i = 0; i < 5; i++) {
+        printf("Qual o seu cargo na sua empresa? ");
+        scanf("%s", &cargos[i]);
+        comp = strcasecmp(cargos[i], "diretor");
+    }
+    if (comp == 0) {
+        printf("O cargo (Diretor) foi informado!\n");
+    } else {
+        printf("O cargo (Diretor) nao foi informado!\n");
+    }
+    return 0;
+}
+
+#include <stdio.h> // EXERCÍCIO 10
+#include <string.h>
+
+int main(void) {
+    char estados[4][30], estadoMenorHabitantes[30];
+    int habitantes[4], menosHabitantes = 0;
+
+    for (int i = 0; i < 4; i++) {
+        printf("Digite o seu estado: ");
+        scanf("%s", estados[i]);
+        printf("Quantidade de habitantes: ");
+        scanf("%d", &habitantes[i]);
+        if(habitantes[i] < menosHabitantes || menosHabitantes == 0) {
+            menosHabitantes = habitantes[i];
+            strcpy(estadoMenorHabitantes, estados[i]);
+        }
+    }
+    printf("O estado digitado com menor quantidade de habitantes foi o %s com %d habitantes.\n", estadoMenorHabitantes, menosHabitantes);
+    return 0;
+}
+
+#include <stdio.h> // EXERCÍCIO 11
+#include <string.h>
+
+int main(void) {
+    char nomes[5][20], paises[5][20], nomeEPais[40];
+    for (int i = 0; i < 5; i++) {
+        printf("Qual o nome da %d pessoa: ", i+1);
+        scanf("%s", nomes[i]);
+        printf("Qual o pais dessa pessoa: ");
+        scanf("%s", paises[i]);
+
+        strcpy(nomeEPais, nomes[i]);
+        strcat(nomeEPais, "-");
+        strcat(nomeEPais, paises[i]);
+        printf("%s\n", nomeEPais);
+    }
+    return 0;
+}
+
+
+#include <stdio.h> // EXERCÍCIO 12
+#include <string.h>
+
+int main(void) {
+    float salarios[2][4];
+
+    for (int i = 0; i < 2; i++) {
+        printf("%d linha:\n", i+1);
+        for (int j = 0; j < 4; j++) {
+            printf("Digite o valor da %d coluna: ", j+1);
+            scanf("%f", &salarios[i][j]);
+        }
+        printf("\n");
+    }
+    for (int i = 0; i < 2; i++) {
+        for (int j = 0; j < 4; j++) {
+            printf("[R$%.2f]", salarios[i][j]);
+        }
+        printf("\n");
+    }
+    printf("Salarios maiores que R$1000,00:\n");
+    for (int i = 0; i < 2; i++) {
+        for (int j = 0; j < 4; j++) {
+            if (salarios[i][j] > 1000) {
+                printf("[R$%.2f]\n", salarios[i][j]);
+            }
+        }
+    }
     return 0;
 }
