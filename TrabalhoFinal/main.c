@@ -3,28 +3,31 @@
 int main(void) {
     float valorTotalVenda[5], valorTotal = 0, valorTotalCamisaP = 0, mediaTotal = 0, abaixoDe = 0;
     char tamanhoCamisa[5], voltarMenu = 'S';
-    int qtdCamisa[5], codVenda[5], digitado = 0, teste, tipoVenda[5], menuCodigo=0, menu = 0, qtdAbaixoDe = 0, qtdAcima100 = 0, qtdCamisaP = 0, qtdCamisaM = 0, qtdCamisaG = 0, qtdCamisaTotal = 0, qtdTipoVendaImpar = 0, maiorQtdTipoVenda = 0, qtdTipo[5];
+    int qtdCamisa[5], codVenda[5], digitado = 0, teste, tipoVenda[5], menuCodigo = 0, menu = 0;
+    int qtdAbaixoDe = 0, qtdAcima100 = 0, qtdCamisaP = 0, qtdCamisaM = 0, qtdCamisaG = 0;
+    int qtdCamisaTotal = 0, qtdTipoVendaImpar = 0, maiorQtdTipoVenda = 0;
+    int qtdTipo[5] = {0}, maiorQtdTipoVendaTeste = 0;
 
     for (int i = 0; i < 5; i++) {
-        do { 
+        do {
             teste = 0;
-            printf("Digite o codigo da %da venda (1 a 5): ", i+1);
+            printf("Digite o codigo da %da venda (1 a 5): ", i + 1);
             scanf("%d", &digitado);
-            if (digitado < 1 || digitado > 5) { 
+            if (digitado < 1 || digitado > 5) {
                 printf("Codigo invalido!\n");
-                teste = 1; // valor definido para caso o código for inválido, repetir o pergunta.
+                teste = 1;
             }
-            for (int j=0; j<i; j++) {
+            for (int j = 0; j < i; j++) {
                 if (digitado == codVenda[j]) {
                     printf("Codigo ja cadastrado!\n");
-                    teste = 1; // valor definido para caso o código digitado já esteja cadastrado, repetir a pergunta.
+                    teste = 1;
                     break;
                 }
             }
         } while (teste == 1);
         codVenda[i] = digitado;
 
-        do { 
+        do {
             teste = 0;
             printf("Tamanho da camisa (P / M / G): ");
             scanf(" %c", &tamanhoCamisa[i]);
@@ -39,17 +42,17 @@ int main(void) {
                 case 'M':
                     printf("Quantidade de camisas M: ");
                     scanf("%d", &qtdCamisa[i]);
-                    qtdCamisaM++;            
+                    qtdCamisaM++;
                     break;
-                case'g':
-                case'G':
+                case 'g':
+                case 'G':
                     printf("Quantidade de camisas G: ");
                     scanf("%d", &qtdCamisa[i]);
                     qtdCamisaG++;
                     break;
                 default:
                     printf("Tamanho de camisa invalido.\n");
-                    teste = 1; // caso o tamanho da camisa esteja incorreto, repetir a pergunta
+                    teste = 1;
             }
         } while (teste == 1);
         printf("Valor total da venda: R$");
@@ -60,27 +63,25 @@ int main(void) {
             if (tipoVenda[i] < 1 || tipoVenda[i] > 5) {
                 printf("Tipo de venda invalido!\n");
             }
-            for(int k = 0; k < 5; k++){
-                if (tipoVenda[i] == k+1) {
-                    qtdTipo[k]++;
-                }
-            }
-            for (int k = 0; k < 5; k++) {
-                if (qtdTipo[k] > maiorQtdTipoVenda) {
-                    maiorQtdTipoVenda = tipoVenda[i];
-                }
-            }
         } while (tipoVenda[i] < 1 || tipoVenda[i] > 5);
-        printf("Venda %d cadastrada com sucesso!\n\n", i+1);
+
+        printf("Venda %d cadastrada com sucesso!\n\n", i + 1);
+    }
+    for (int i = 0; i < 5; i++) {
+        qtdTipo[tipoVenda[i] - 1]++;
+        if (qtdTipo[tipoVenda[i] - 1] > maiorQtdTipoVendaTeste) {
+            maiorQtdTipoVendaTeste = qtdTipo[tipoVenda[i] - 1];
+            maiorQtdTipoVenda = tipoVenda[i];
+        }
     }
     do {
         printf("\n-=x MENU x=-\n");
         printf("1- Ver informacoes de todas vendas\n2- Ver informacoes de uma venda especifica\n-> ");
         scanf("%d", &menu);
-        switch(menu) {
+        switch (menu) {
             case 1:
                 for (int i = 0; i < 5; i++) {
-                    printf("\n-=x %d VENDA x=-\n", i+1);
+                    printf("\n-=x %d VENDA x=-\n", i + 1);
                     printf("Codigo de venda: %d\n", codVenda[i]);
                     printf("Tamanho das camisas: %c\n", tamanhoCamisa[i]);
                     printf("Quantidade de camisas: %d\n", qtdCamisa[i]);
@@ -89,25 +90,25 @@ int main(void) {
                         case 1:
                             printf("Tipo de venda: A vista");
                             break;
-                        case 2: 
+                        case 2:
                             printf("Tipo de venda: Parcelado");
                             break;
                         case 3:
                             printf("Tipo de venda: Delivery a vista");
                             break;
-                        case 4: 
+                        case 4:
                             printf("Tipo de venda: Delivery parcelado");
                             break;
-                        case 5: 
+                        case 5:
                             printf("Tipo de venda: Venda online");
                             break;
                     }
-                printf("\n-=x FIM x=-\n");    
+                    printf("\n-=x FIM x=-\n");
                 }
                 break;
             case 2:
                 printf("Digite o codigo unico do produto que deseja ver: ");
-                scanf("%d", &menuCodigo); 
+                scanf("%d", &menuCodigo);
                 if (menuCodigo < 1 || menuCodigo > 5) {
                     printf("Codigo unico nao cadastrado!\n");
                     printf("Deseja voltar para o menu [S / N]? ");
@@ -115,7 +116,7 @@ int main(void) {
                     if (voltarMenu == 's' || voltarMenu == 'S') {
                         teste = 1;
                         break;
-                    } else if (voltarMenu == 'n' || voltarMenu == 'N'){
+                    } else if (voltarMenu == 'n' || voltarMenu == 'N') {
                         teste = 0;
                         break;
                     }
@@ -123,7 +124,7 @@ int main(void) {
                 teste = 0;
                 for (int i = 0; i < 5; i++) {
                     if (menuCodigo == codVenda[i]) {
-                        printf("\n-=x %d VENDA x=-\n", i+1);
+                        printf("\n-=x %d VENDA x=-\n", i + 1);
                         printf("Codigo de venda: %d\n", codVenda[i]);
                         printf("Tamanho das camisas: %c\n", tamanhoCamisa[i]);
                         printf("Quantidade de camisas: %d\n", qtdCamisa[i]);
@@ -132,16 +133,16 @@ int main(void) {
                             case 1:
                                 printf("Tipo de venda: A vista");
                                 break;
-                            case 2: 
+                            case 2:
                                 printf("Tipo de venda: Parcelado");
                                 break;
                             case 3:
                                 printf("Tipo de venda: Delivery a vista");
                                 break;
-                            case 4: 
+                            case 4:
                                 printf("Tipo de venda: Delivery parcelado");
                                 break;
-                            case 5: 
+                            case 5:
                                 printf("Tipo de venda: Venda online");
                                 break;
                         }
@@ -149,14 +150,13 @@ int main(void) {
                     }
                 }
                 break;
-                
-            default: 
+            default:
                 teste = 0;
                 break;
         }
         printf("\nDeseja voltar ao menu [S / N]? ");
         scanf(" %c", &voltarMenu);
-        if(voltarMenu == 's' || voltarMenu == 'S') {
+        if (voltarMenu == 's' || voltarMenu == 'S') {
             teste = 1;
         } else if (voltarMenu == 'n' || voltarMenu == 'N') {
             teste = 0;
@@ -164,11 +164,11 @@ int main(void) {
         if (teste == 0) {
             printf("\nDigite um valor para saber a quantidade de vendas abaixo do preco digitado: ");
             scanf("%f", &abaixoDe);
-            for(int i = 0; i < 5; i++) {
-                if(valorTotalVenda[i] > 100) {
+            for (int i = 0; i < 5; i++) {
+                if (valorTotalVenda[i] > 100) {
                     qtdAcima100++;
                 }
-                if(valorTotalVenda[i] < abaixoDe) {
+                if (valorTotalVenda[i] < abaixoDe) {
                     qtdAbaixoDe++;
                 }
                 if (tamanhoCamisa[i] == 'p' || tamanhoCamisa[i] == 'P') {
@@ -181,7 +181,7 @@ int main(void) {
                 }
             }
             mediaTotal = valorTotal / 5;
-            printf("\nQuantidades de vendas abaixo de R$%f: %d\n", abaixoDe, qtdAbaixoDe);
+            printf("\nQuantidades de vendas abaixo de R$%.2f: %d\n", abaixoDe, qtdAbaixoDe);
             printf("Quantidades de vendas a cima de R$100.00: %d\n", qtdAcima100);
             printf("Quantidades vendidas de camisas G: %d\n", qtdCamisaG);
             printf("Valor total das vendas de camisa de tamanho P: R$%.2f\n", valorTotalCamisaP);
@@ -192,16 +192,16 @@ int main(void) {
                 case 1:
                     printf("Tipo de venda mais vendido foi: A vista");
                     break;
-                case 2: 
+                case 2:
                     printf("Tipo de venda mais vendido foi: Parcelado");
                     break;
                 case 3:
                     printf("Tipo de venda mais vendido foi: Delivery a vista");
                     break;
-                case 4: 
+                case 4:
                     printf("Tipo de venda mais vendido foi: Delivery parcelado");
                     break;
-                case 5: 
+                case 5:
                     printf("Tipo de venda mais vendido foi: Venda online");
                     break;
             }

@@ -1,6 +1,6 @@
 {
     "window.zoomLevel": 0.5,
-    "editor.fontSize": 15,
+    "editor.fontSize": 13,
     "workbench.iconTheme": "material-icon-theme",
     "editor.wordWrap": "on",
     "files.autoSave": "afterDelay",
